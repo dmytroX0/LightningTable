@@ -1,0 +1,33 @@
+<aura:component implements='flexipage:availableForAllPageTypes' access='global' controller='deleteItemController'>
+    <aura:handler name='init' value='{!this}' action='{!c.OnLoadRecord}'/>
+    <aura:attribute name='Items' type='Item__c[]'/>
+    <aura:attribute name="Opportunity" type="Opportunity"/>
+    <table>
+        <tr>
+            <th>delete</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Opportunity Name</th>
+        </tr>
+        <aura:iteration items='{!v.Items}' var='itm'>
+            <tr>
+                <td>
+                    <button type='button' onclick='{!c.deleteRecord}' id='{!itm.Id}' class='slds-button slds-button_destructive'>Delete</button>
+                </td>
+                <td> {!itm.Name} </td>
+                <td> {!itm.Price__c} </td>
+                <td> {!itm.Quantity__c} </td>
+                <td> {!v.Opportunity.Name} </td>
+            </tr>
+        </aura:iteration>
+    </table>
+    <aura:attribute name='itm' type='Item__c' default="{sobjecttype:'Item__c'}"/>
+    <lightning:input label='Name' value='{!v.itm.Name}'/>
+    <lightning:input label='Price' value='{!v.itm.Price__c}'/>
+    <lightning:input label='Quantity' value='{!v.itm.Quantity__c}'/>
+    <lightning:input label='Opportunity' value='{!v.itm.Opportunity}'/> 
+    
+    <lightning:button label='Create' onclick='{!c.submitfunction}'/> 
+    
+</aura:component>
