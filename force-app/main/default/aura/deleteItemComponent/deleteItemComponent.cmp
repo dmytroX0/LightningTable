@@ -26,7 +26,7 @@
     <lightning:input label='Name' value='{!v.itm.Name}'/>
     <lightning:input label='Price' value='{!v.itm.Price__c}'/>
     <lightning:input label='Quantity' value='{!v.itm.Quantity__c}'/>
-    <lightning:input label='Opportunity' value='{!v.itm.Opportunity}'/> 
+    <lightning:input label='Opportunity' value='{!v.itm.OpportunityId}'/> 
     
     <lightning:button label='Create' onclick='{!c.submitfunction}'/> 
     
