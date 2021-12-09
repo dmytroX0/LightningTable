@@ -1,0 +1,22 @@
+<aura:component controller = "InlineEditForItemController" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="ItemList" type="Item__c[]"/>
+    <aura:attribute name="showOpportunity" type="Opportunity"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="UpdatedList" type="Item__c[]"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}" />
+    <lightning:card iconName="standard:work_capacity_usage" title="Related Items">
+        <aura:if isTrue="{!not(empty(v.ItemList))}">
+            <lightning:datatable data="{!v.ItemList }"
+                         columns="{!v.columns }" 
+                         keyField="Id"
+                         draftValues= "{!v.UpdatedList}"
+                         onsave="{!c.SaveUpdatedItems}"
+                         hideCheckboxColumn="true"/>
+            <aura:set attribute="else">
+                <div Style="text-align : center"> " There are no related Items " </div>
+            </aura:set>
+        </aura:if>
+    </lightning:card>
+</aura:component>

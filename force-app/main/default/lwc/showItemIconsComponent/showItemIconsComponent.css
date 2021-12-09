@@ -1,0 +1,8 @@
+.Item-tile {
+    border: 1px solid #8d8175;
+    border-radius: .25rem;
+    display: block;
+}
+.Item-silhouette {
+    height: 100;
+}

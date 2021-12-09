@@ -12,7 +12,10 @@ public class deleteItemController {
     public static List<Opportunity> getRecord(){
         return [Select Name,id From Opportunity];
     }
-    
+    	@AuraEnabled
+    public static void saveDetails (Item__c regForm1){ 
+    	INSERT regForm1;
+    }
     @AuraEnabled
     public static List<Item__c> deleteItem(String itmid) {
         if(itmid != null){

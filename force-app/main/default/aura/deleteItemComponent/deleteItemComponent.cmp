@@ -2,32 +2,84 @@
     <aura:handler name='init' value='{!this}' action='{!c.OnLoadRecord}'/>
     <aura:attribute name='Items' type='Item__c[]'/>
     <aura:attribute name="Opportunity" type="Opportunity"/>
+    <aura:attribute name='itm' type='Item__c' default="{sobjecttype:'Item__c'}"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
     <table>
         <tr>
             <th>delete</th>
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
-            <th>Opportunity Name</th>
+            
         </tr>
         <aura:iteration items='{!v.Items}' var='itm'>
             <tr>
                 <td>
                     <button type='button' onclick='{!c.deleteRecord}' id='{!itm.Id}' class='slds-button slds-button_destructive'>Delete</button>
                 </td>
-                <td> {!itm.Name} </td>
+				<td> {!itm.Name} </td>
                 <td> {!itm.Price__c} </td>
                 <td> {!itm.Quantity__c} </td>
-                <td> {!v.Opportunity.Name} </td>
+                <td> {!itm.Opportunity__r.Name} </td>
             </tr>
         </aura:iteration>
     </table>
-    <aura:attribute name='itm' type='Item__c' default="{sobjecttype:'Item__c'}"/>
-    <lightning:input label='Name' value='{!v.itm.Name}'/>
-    <lightning:input label='Price' value='{!v.itm.Price__c}'/>
-    <lightning:input label='Quantity' value='{!v.itm.Quantity__c}'/>
-    <lightning:input label='Opportunity' value='{!v.itm.OpportunityId}'/> 
+        <lightning:button label="Create Item"
+                      iconName="utility:new_window"
+                      iconPosition="left"
+                      variant="brand"
+                      onclick="{!c.newPopup}"
+                      />
+	<div role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="Modalbox1" class="slds-modal slds-modal_large">
+        <div class="slds-modal__container" style="width: 65%;">
+            <div class="slds-modal__header">
+                Item
+            </div>
+            
+            <div class="slds-modal__content slds-p-around--medium">
+                <div class="slds-p-left_xx-large slds-p-right_xx-large">
+                    <div class="slds-page-header" style="padding-top: 9px; padding-bottom: 9px;, padding-right: 9px;, padding-left: 10px;">
+                        <h3 style="font-size: 1rem;" title="">Item</h3>
+                    </div> 
+                </div>    
+                <div class="slds-grid slds-p-top_medium">
+                    <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        <lightning:input label="Item Name" name="myname" value="{!v.itm.Name}"/> 
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <lightning:input label="Price" name="myname" value="{!v.itm.Price__c}"/> 
+                    </div>
+                </div>
+                <div class="slds-grid slds-p-top_x-small">
+                    <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        <lightning:input label="Quantity" name="mynumber" value="{!v.itm.Quantity__c}"/> 
+                    </div>
+                </div>
+                                <div class="slds-grid slds-p-top_x-small">
+                    <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <lightning:button label="Save" onclick="{!c.submitfunction}" />
+                <lightning:button label="close" onclick="{!c.closeNewModal}" />
+            </div>
+        </div>
+    </div>
     
-    <lightning:button label='Create' onclick='{!c.submitfunction}'/> 
-    
+
+        <div style="height: 300px">
+        <lightning:datatable
+            columns="{! v.columns }"
+            data="{! v.data }"
+            keyField="id"
+            errors="{! v.errors }"
+            draftValues="{! v.draftValues }"
+            onsave="{! c.handleSaveEdition }"
+        />
+    </div>
 </aura:component>
